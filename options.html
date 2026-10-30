@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>No Thanks settings</title><link rel="stylesheet" href="style.css"></head>
+<body class="options">
+  <main class="page">
+    <header class="brand">
+      <img src="icons/128.png" alt="">
+      <div class="brand-text"><h1>No Thanks</h1><p>Media plays when you say so.</p></div>
+      <label class="switch master" title="Turn No Thanks on or off everywhere"><input type="checkbox" id="enabled" aria-label="Turn No Thanks on or off"><i></i></label>
+    </header>
+
+    <section class="group">
+      <h2>Defaults</h2>
+      <div class="card">
+        <label class="setting">
+          <span class="setting-text"><b>Block autoplay</b><span>Media waits until you start it, on every site.</span></span>
+          <span class="switch"><input type="checkbox" id="blockAutoplay"><i></i></span>
+        </label>
+        <label class="setting">
+          <span class="setting-text"><b>Allow silent videos</b><span>Let muted videos autoplay, such as background clips.</span></span>
+          <span class="switch"><input type="checkbox" id="allowMutedAutoplay"><i></i></span>
+        </label>
+        <label class="setting">
+          <span class="setting-text"><b>Auto-mute</b><span>If you mute or unmute a tab yourself, that wins until it goes to another site.</span></span>
+          <select id="muteMode">
+            <option value="off">Off</option>
+            <option value="all">All tabs</option>
+            <option value="background">Background tabs</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Exceptions</h2>
+      <p class="hint"><code>example.com</code> covers the site and its subdomains. <code>example.com/videos</code> covers pages under that path. The most specific rule wins, and embedded videos follow the page they are on.</p>
+      <div class="card">
+        <div class="table-wrap" id="tableWrap">
+          <table>
+            <thead><tr><th>Site or page</th><th>Autoplay</th><th>Sound</th><th></th></tr></thead>
+            <tbody id="rules"></tbody>
+          </table>
+        </div>
+        <p class="empty" id="empty">No exceptions yet. Add one below, or right-click any page.</p>
+        <form class="add" id="add">
+          <input type="text" id="newKey" placeholder="example.com or example.com/path" aria-label="Site or page" required>
+          <select id="newAutoplay" aria-label="Autoplay"></select>
+          <select id="newMute" aria-label="Sound"></select>
+          <button class="primary">Add</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="group tools-group">
+      <h2>Backup and shortcuts</h2>
+      <div class="tools">
+        <button id="export">Export settings</button>
+        <button id="import">Import settings</button>
+        <button id="shortcuts">Keyboard shortcuts</button>
+        <input type="file" id="file" accept=".json,application/json" hidden>
+      </div>
+    </section>
+  </main>
+
+  <script src="rules.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

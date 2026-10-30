@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>No Thanks</title><link rel="stylesheet" href="style.css"></head>
+<body class="popup">
+  <header class="brand">
+    <img src="icons/32.png" width="26" height="26" alt="">
+    <div class="brand-text"><h1>No Thanks</h1><p id="tagline">Media plays when you say so.</p></div>
+    <label class="switch master" title="Turn No Thanks on or off everywhere"><input type="checkbox" id="enabled" aria-label="Turn No Thanks on or off"><i></i></label>
+  </header>
+
+  <section id="site" class="card">
+    <div class="site-head">
+      <div class="avatar" id="avatar" aria-hidden="true"></div>
+      <div class="key" id="key"></div>
+      <div class="seg" role="group" aria-label="Apply to">
+        <button data-scope="site" class="on">Site</button>
+        <button data-scope="page">Page</button>
+      </div>
+    </div>
+    <label class="setting" id="rowautoplay">
+      <span class="glyph"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>
+      <span class="setting-text"><b>Allow autoplay</b><span id="sautoplay"></span></span>
+      <span class="switch"><input type="checkbox" id="qautoplay"><i></i></span>
+    </label>
+    <label class="setting" id="rowmute">
+      <span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg></span>
+      <span class="setting-text"><b>Allow sound</b><span id="smute"></span></span>
+      <span class="switch"><input type="checkbox" id="qmute"><i></i></span>
+    </label>
+    <div class="site-foot"><span id="status"></span><a href="#" id="reset" hidden>Reset</a></div>
+  </section>
+
+  <div class="row">
+    <button id="toggle">Mute tab</button>
+    <button id="others">Mute other tabs</button>
+  </div>
+
+  <section class="card defaults">
+    <div class="eyebrow">Defaults for every site</div>
+    <label class="opt">Block autoplay <span class="switch"><input type="checkbox" id="blockAutoplay"><i></i></span></label>
+    <label class="opt">Allow silent videos <span class="switch"><input type="checkbox" id="allowMutedAutoplay"><i></i></span></label>
+    <label class="opt">Auto-mute
+      <select id="muteMode"><option value="off">Off</option><option value="all">All tabs</option><option value="background">Background tabs</option></select>
+    </label>
+  </section>
+
+  <a class="all-link" href="options.html" target="_blank">All rules and settings <span aria-hidden="true">→</span></a>
+
+  <script src="rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
