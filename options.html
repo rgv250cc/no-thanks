@@ -5,12 +5,12 @@
   <main class="page">
     <header class="brand">
       <img src="icons/128.png" alt="">
-      <div class="brand-text"><h1>No Thanks</h1><p>Media plays when you say so.</p></div>
+      <div class="brand-text"><h1>No Thanks</h1><p>Ads, autoplay and noise: no thanks.</p></div>
       <label class="switch master" title="Turn No Thanks on or off everywhere"><input type="checkbox" id="enabled" aria-label="Turn No Thanks on or off"><i></i></label>
     </header>
 
     <section class="group">
-      <h2>Defaults</h2>
+      <h2>Media</h2>
       <div class="card">
         <label class="setting">
           <span class="setting-text"><b>Block autoplay</b><span>Media waits until you start it, on every site.</span></span>
@@ -32,12 +32,54 @@
     </section>
 
     <section class="group">
+      <h2>Ads and safety</h2>
+      <div class="card">
+        <label class="setting">
+          <span class="setting-text"><b>Block ads and trackers</b><span>Uses the same filter lists as uBlock Origin Lite, including those for your language.</span></span>
+          <span class="switch"><input type="checkbox" id="blockAds"><i></i></span>
+        </label>
+        <label class="setting">
+          <span class="setting-text"><b>Block malware and phishing sites</b><span>Stops known dangerous sites, and you can choose to continue.</span></span>
+          <span class="switch"><input type="checkbox" id="blockMalware"><i></i></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Clutter to hide</h2>
+      <p class="hint">Off by default, because hiding more can sometimes hide things you want. "Allow ads" on a site turns these off there too.</p>
+      <div class="card">
+        <label class="setting"><span class="setting-text"><b>Cookie notices</b><span>Hides what "Reject cookies" below could not answer.</span></span><span class="switch"><input type="checkbox" id="listCookies"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Overlays and newsletter pop-ups</b><span>Sign-up boxes, app banners and "subscribe" nags.</span></span><span class="switch"><input type="checkbox" id="listOverlays"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Social buttons</b><span>Share and follow buttons, and social media embeds.</span></span><span class="switch"><input type="checkbox" id="listSocial"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Chat and help widgets</b><span>The bubbles in the corner of the page.</span></span><span class="switch"><input type="checkbox" id="listWidgets"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Notification nags</b><span>The site's own boxes that ask you to turn on notifications.</span></span><span class="switch"><input type="checkbox" id="listNotifications"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>AI widgets</b><span>AI assistants and summaries that sites add to their pages.</span></span><span class="switch"><input type="checkbox" id="listAI"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Other annoyances</b><span>Everything else on the annoyance lists.</span></span><span class="switch"><input type="checkbox" id="listOthers"><i></i></span></label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Page tricks</h2>
+      <p class="hint">Things pages do to get your attention or your data. "Allow page tricks" on a site turns these off there.</p>
+      <div class="card">
+        <label class="setting"><span class="setting-text"><b>Reject cookies</b><span>Answers cookie banners with "reject" for you.</span></span><span class="switch"><input type="checkbox" id="rejectCookies"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Quiet permission prompts</b><span>Notification and location prompts only appear after you click or type on the page.</span></span><span class="switch"><input type="checkbox" id="quietPrompts"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>No needless "Leave site?" dialogs</b><span>They still appear if you changed something on the page.</span></span><span class="switch"><input type="checkbox" id="noLeaveDialogs"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Honest copy and paste</b><span>Sites cannot block them or add text to what you copy. Shift + right-click always opens the browser's menu.</span></span><span class="switch"><input type="checkbox" id="fixClipboard"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Unlock scrolling</b><span>Scrolling comes back when a banner left the page locked.</span></span><span class="switch"><input type="checkbox" id="unlockScroll"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Always allow right-click and text selection</b><span>Off by default, because web apps use these for their own menus and dragging.</span></span><span class="switch"><input type="checkbox" id="unlockMenu"><i></i></span></label>
+        <label class="setting"><span class="setting-text"><b>Send Global Privacy Control</b><span>Tells every site not to sell or share your data. This applies on all sites.</span></span><span class="switch"><input type="checkbox" id="privacySignal"><i></i></span></label>
+      </div>
+    </section>
+
+    <section class="group">
       <h2>Exceptions</h2>
-      <p class="hint"><code>example.com</code> covers the site and its subdomains. <code>example.com/videos</code> covers pages under that path. The most specific rule wins, and embedded videos follow the page they are on.</p>
+      <p class="hint"><code>example.com</code> covers the site and its subdomains. <code>example.com/videos</code> covers pages under that path. The most specific rule wins, and embedded frames follow the page they are on. Ad and page trick changes apply when the page next loads.</p>
       <div class="card">
         <div class="table-wrap" id="tableWrap">
           <table>
-            <thead><tr><th>Site or page</th><th>Autoplay</th><th>Sound</th><th></th></tr></thead>
+            <thead><tr><th>Site or page</th><th>Autoplay</th><th>Sound</th><th>Ads</th><th>Tricks</th><th></th></tr></thead>
             <tbody id="rules"></tbody>
           </table>
         </div>
@@ -46,8 +88,21 @@
           <input type="text" id="newKey" placeholder="example.com or example.com/path" aria-label="Site or page" required>
           <select id="newAutoplay" aria-label="Autoplay"></select>
           <select id="newMute" aria-label="Sound"></select>
+          <select id="newAds" aria-label="Ads"></select>
+          <select id="newTricks" aria-label="Page tricks"></select>
           <button class="primary">Add</button>
         </form>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Hidden elements</h2>
+      <p class="hint">Use "Hide an element" in the popup or the right-click menu to add one.</p>
+      <div class="card">
+        <div class="table-wrap" id="hiddenWrap">
+          <table><thead><tr><th>Site and element</th><th></th></tr></thead><tbody id="hidden"></tbody></table>
+        </div>
+        <p class="empty" id="hiddenEmpty">Nothing hidden yet.</p>
       </div>
     </section>
 
@@ -59,6 +114,7 @@
         <button id="shortcuts">Keyboard shortcuts</button>
         <input type="file" id="file" accept=".json,application/json" hidden>
       </div>
+      <p class="hint" id="credits">Filter lists and their page scripts come from <a href="https://github.com/uBlockOrigin/uBOL-home">uBlock Origin Lite</a>, cookie rules from <a href="https://github.com/duckduckgo/autoconsent">autoconsent</a>. No Thanks is <a href="https://github.com/rgv250cc/no-thanks">free software</a> under the GPLv3. Filter lists update when the extension does.</p>
     </section>
   </main>
 

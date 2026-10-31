@@ -4,7 +4,7 @@
 <body class="popup">
   <header class="brand">
     <img src="icons/32.png" width="26" height="26" alt="">
-    <div class="brand-text"><h1>No Thanks</h1><p id="tagline">Media plays when you say so.</p></div>
+    <div class="brand-text"><h1>No Thanks</h1><p id="tagline">Ads, autoplay and noise: no thanks.</p></div>
     <label class="switch master" title="Turn No Thanks on or off everywhere"><input type="checkbox" id="enabled" aria-label="Turn No Thanks on or off"><i></i></label>
   </header>
 
@@ -27,22 +27,36 @@
       <span class="setting-text"><b>Allow sound</b><span id="smute"></span></span>
       <span class="switch"><input type="checkbox" id="qmute"><i></i></span>
     </label>
+    <label class="setting" id="rowads">
+      <span class="glyph"><svg viewBox="0 0 24 24"><path d="M12 3.5 5 6v6c0 4.2 2.9 7.3 7 8.5 4.1-1.2 7-4.3 7-8.5V6z"/><path d="m9.5 12 2 2 3.5-4"/></svg></span>
+      <span class="setting-text"><b>Allow ads</b><span id="sads"></span></span>
+      <span class="switch"><input type="checkbox" id="qads"><i></i></span>
+    </label>
+    <label class="setting" id="rowtricks">
+      <span class="glyph"><svg viewBox="0 0 24 24"><path d="M12 4a5 5 0 0 0-5 5c0 4-2 5-2 6.5h14c0-1.5-2-2.5-2-6.5a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></span>
+      <span class="setting-text"><b>Allow page tricks</b><span id="stricks"></span></span>
+      <span class="switch"><input type="checkbox" id="qtricks"><i></i></span>
+    </label>
+    <div class="reload" id="reloadRow" hidden><span>Reload the page to apply this.</span><button id="reload" class="primary">Reload</button></div>
     <div class="site-foot"><span id="status"></span><a href="#" id="reset" hidden>Reset</a></div>
   </section>
 
   <div class="row">
     <button id="toggle">Mute tab</button>
     <button id="others">Mute other tabs</button>
+    <button id="once" title="Turn off ad blocking and page tricks on this site until this tab closes or leaves it. Reloads the page.">Allow once</button>
+    <button id="hide" title="Point at something on this page and click it to keep it hidden on this site.">Hide an element</button>
   </div>
 
-  <section class="card defaults">
-    <div class="eyebrow">Defaults for every site</div>
+  <details class="card defaults">
+    <summary class="eyebrow">Defaults for every site</summary>
+    <label class="opt">Block ads and trackers <span class="switch"><input type="checkbox" id="blockAds"><i></i></span></label>
     <label class="opt">Block autoplay <span class="switch"><input type="checkbox" id="blockAutoplay"><i></i></span></label>
     <label class="opt">Allow silent videos <span class="switch"><input type="checkbox" id="allowMutedAutoplay"><i></i></span></label>
     <label class="opt">Auto-mute
       <select id="muteMode"><option value="off">Off</option><option value="all">All tabs</option><option value="background">Background tabs</option></select>
     </label>
-  </section>
+  </details>
 
   <a class="all-link" href="options.html" target="_blank">All rules and settings <span aria-hidden="true">→</span></a>
 

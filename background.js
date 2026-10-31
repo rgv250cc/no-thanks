@@ -1,4 +1,4 @@
-importScripts('rules.js');
+importScripts('rules.js', 'js/consent-lib.js', 'blocking.js');
 
 // A manual mute/unmute (tab speaker icon, popup, shortcut) is remembered per tab
 // as the host it happened on, and wins over auto-mute until the tab leaves that host.
@@ -77,7 +77,9 @@ chrome.runtime.onStartup.addListener(applyAll);
 chrome.windows.onFocusChanged.addListener(refreshMenu);
 
 // --- right-click quick menu (page + toolbar icon); checkmarks show what's in effect now ---
-const MENU = [['autoplay', 'site'], ['autoplay', 'page'], ['mute', 'site'], ['mute', 'page']];
+const MENU = ['autoplay', 'mute', 'ads', 'tricks'].flatMap(field => [[field, 'site'], [field, 'page']]);
+const MENU_WORDS = { autoplay: 'autoplay', mute: 'sound', ads: 'ads', tricks: 'page tricks' };
+const MENU_CONTEXTS = ['page', 'frame', 'video', 'audio', 'link', 'image', 'selection', 'action'];
 
 chrome.runtime.onInstalled.addListener(async () => {
   // v1 stored allowMutedAutoplay:on / muteMode:off; force the v2 defaults once, keep the rules
@@ -88,9 +90,10 @@ chrome.runtime.onInstalled.addListener(async () => {
     for (const [field, scope] of MENU) {
       chrome.contextMenus.create({
         id: field + ':' + scope, type: 'checkbox', title: field,
-        contexts: ['page', 'frame', 'video', 'audio', 'link', 'image', 'selection', 'action'],
+        contexts: MENU_CONTEXTS,
       });
     }
+    chrome.contextMenus.create({ id: 'hide', title: 'Hide an element on this page', contexts: MENU_CONTEXTS });
     refreshMenu();
   });
   applyAll();
@@ -105,15 +108,23 @@ async function refreshMenu() {
     if (web) {
       const sc = scopeOf(tab.url, scope);
       props.checked = allowedAt(s, sc.url, field);
-      props.title = `Allow ${field === 'autoplay' ? 'autoplay' : 'sound'} on ${scope === 'site' ? sc.key : 'this page'}`;
+      props.title = `Allow ${MENU_WORDS[field]} on ${scope === 'site' ? sc.key : 'this page'}`;
     }
     chrome.contextMenus.update(field + ':' + scope, props, () => chrome.runtime.lastError);
   }
 }
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (!/^https?:/.test(tab?.url || '')) return;
+  if (info.menuItemId === 'hide') {
+    chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['picker.js'] }).catch(() => {});
+    return;
+  }
   const [field, scope] = info.menuItemId.split(':');
-  if (/^https?:/.test(tab?.url || '')) setAllowed(scope, tab.url, field, info.checked, tab.id);
+  // a checkmark that changes nothing on screen looks broken, and these only apply on the next load
+  setAllowed(scope, tab.url, field, info.checked, tab.id).then(() => {
+    if (field === 'ads' || field === 'tricks') syncBlocking().then(() => chrome.tabs.reload(tab.id));
+  });
 });
 
 chrome.commands.onCommand.addListener(async (cmd, tab) => {

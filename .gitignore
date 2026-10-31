@@ -1,2 +1,7 @@
 dist/
 .DS_Store
+# fetched by scripts/update-lists.mjs
+/rulesets/
+/web_accessible_resources/
+/js/
+/_metadata/

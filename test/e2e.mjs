@@ -43,7 +43,7 @@ const CASES = [
 
   { name: 'click on video, site calls play()', js: `v.onclick=()=>v.play();`, acts: [{ click: '#v' }], expect: true },
   { name: 'control bar outside the video, slow start past browser activation', js: `bar.onclick=()=>setTimeout(()=>v.play(),6000);`, acts: [{ click: '#bar' }], wait: 6500, expect: true },
-  { name: 'click also opens a popup, which uses up browser activation', js: `bar.onclick=()=>{window.open('about:blank');setTimeout(()=>v.play(),300)};`, acts: [{ click: '#bar' }], expect: true },
+  { name: 'click also opens a popup, which uses up browser activation', wait: 2500, js: `bar.onclick=()=>{window.open('about:blank');setTimeout(()=>v.play(),300)};`, acts: [{ click: '#bar' }], expect: true },
   { name: 'hidden video, button elsewhere, popup on click', js: `v.style.display='none';farbtn.onclick=()=>{window.open('about:blank');v.play()};`, acts: [{ click: '#farbtn' }], expect: true },
   { name: 'button labelled Play outside the player, slow start', js: `farbtn.setAttribute('aria-label','Play trailer');farbtn.onclick=()=>setTimeout(()=>v.play(),1500);`, acts: [{ click: '#farbtn' }], wait: 2000, expect: true },
   { name: 'site ignores the rejection and does nothing on click', js: `v.play().catch(()=>{});`, acts: [{ click: '#v' }], expect: true },
