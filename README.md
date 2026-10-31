@@ -30,11 +30,22 @@ By default, autoplay is blocked, all tabs are muted, and silent videos are block
 
 ## How autoplay blocking works
 
-A click only counts as starting media if it lands on that video or its player, and the page address has not changed since. So opening a video from a thumbnail does not start it, and neither does a player moving on to the next video. To start it, click the video or press a key such as Space.
+Media starts when you ask for it on the current page. Any of these counts:
+
+- A click on the video or anywhere in its player, including its control bar.
+- A click on a button that is labelled as play, watch or listen, anywhere on the page.
+- Any click that does not open a link, if the media has no place on the page, such as audio or a hidden video.
+- A key press outside a text field, such as Space. Keys that only move around the page do not count.
+
+If the site does not respond to your click on a video that it tried to start, No Thanks starts the video. The click also reaches players in embedded frames, and it still counts if the player takes a few seconds to load or plays an ad first.
+
+Opening a video from a thumbnail does not start it, and neither does a player moving on to the next video at a new address. Clicks elsewhere on the page, right-clicks and typing do not start media. Video and voice calls are never blocked.
 
 ## Known limits
 
 - A very brief moment of sound is possible if a page starts media before the extension has finished starting up.
+- Sites that play sounds on their own, such as notification sounds, need an autoplay exception.
+- Autoplay inside declarative shadow DOM is not caught.
 - A site written specifically to target this extension could get around the block.
 - About 150 exceptions fit in synced browser storage.
 - Browser pages such as `chrome://` and the extension stores cannot be controlled by extensions.
@@ -45,6 +56,12 @@ Run the rule tests:
 
 ```bash
 node test.js
+```
+
+Run the player tests. They use real clicks on local test pages in a muted headless browser, and take about a minute:
+
+```bash
+node test/e2e.mjs
 ```
 
 Build the zip that is uploaded to the stores:

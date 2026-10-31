@@ -32,7 +32,7 @@ async function applyAll() {
 chrome.runtime.onMessage.addListener((msg, sender, reply) => {
   if (msg.type === 'autoplay?') {
     // judge iframes by the page they're embedded in, not their own URL
-    const url = sender.frameId === 0 ? sender.url : sender.tab?.url || sender.url;
+    const url = sender.frameId === 0 ? msg.url : sender.tab?.url || sender.url;
     getSettings().then(s => reply({ allow: autoplayAllowed(s, url), allowMuted: s.allowMutedAutoplay }));
     return true;
   }
@@ -48,7 +48,12 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
 
 chrome.tabs.onUpdated.addListener((id, change, tab) => {
   if (change.mutedInfo?.reason === 'user') setManual(tab);
-  else if (change.url) { apply(tab); if (tab.active) refreshMenu(); }
+  else if (change.url) {
+    apply(tab);
+    if (tab.active) refreshMenu();
+    // single-page sites change URL with no reload, and a page rule may apply to the new one
+    chrome.tabs.sendMessage(id, { type: 'refresh' }).catch(() => {});
+  }
 });
 
 chrome.tabs.onActivated.addListener(async ({ windowId }) => {

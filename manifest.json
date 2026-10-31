@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "No Thanks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stop autoplay and auto-mute tabs on any website, with exceptions for the sites and pages you choose.",
   "permissions": ["storage", "tabs", "contextMenus"],
   "background": { "service_worker": "background.js" },
