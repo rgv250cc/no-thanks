@@ -76,4 +76,4 @@ No login is needed. To test: open a news site. Ads are gone, the video stays pau
 
 ## Images
 
-In `docs/screenshots`: four 1280x800 screenshots and a 440x280 promo tile.
+In `docs/screenshots`: six 1280x800 screenshots, a 440x280 promo tile and a 1400x560 marquee tile.

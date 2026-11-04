@@ -2,7 +2,7 @@
 <h1 align="center">No Thanks</h1>
 <p align="center">Block ads, trackers, autoplay, sound and page tricks on any website, in Chrome and Edge.<br>Ads, autoplay and noise: no thanks.</p>
 
-![No Thanks stops autoplay and keeps sound off](docs/screenshots/1-autoplay-blocked.png)
+![No Thanks blocks ads, autoplay and sound](docs/screenshots/1-ads-autoplay-noise.png)
 
 ## Features
 
@@ -23,9 +23,11 @@
 
 By default, ads, trackers, malware sites, autoplay and silent videos are blocked, all tabs are muted, and all page tricks are stopped except for the optional right-click and text selection unlock. The clutter lists are off.
 
-![Allow autoplay and sound for the sites you trust](docs/screenshots/2-allow-what-you-trust.png)
-![Manage all your exceptions in the settings page](docs/screenshots/3-exceptions.png)
-![No Thanks in light and dark themes](docs/screenshots/4-light-and-dark.png)
+![Allow autoplay, sound, ads or page tricks for the sites you trust](docs/screenshots/2-allow-what-you-trust.png)
+![Page tricks that No Thanks stops](docs/screenshots/3-page-tricks.png)
+![Optional switches that hide clutter](docs/screenshots/4-hide-clutter.png)
+![Manage all your exceptions in the settings page](docs/screenshots/5-exceptions.png)
+![No Thanks in light and dark themes](docs/screenshots/6-light-and-dark.png)
 
 ## Install from source
 
